@@ -22,3 +22,7 @@ indexOf p = R (maybe' Nothing Just) step Nothing'
                     | otherwise = case rest of
                                    Just' e -> Just' (succ e)
                                    Nothing'  -> Nothing'
+
+-- | Grab the first inputted element
+head :: R a (Maybe a)
+head = R id (const . Just) Nothing

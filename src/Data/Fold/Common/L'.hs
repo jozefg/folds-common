@@ -48,3 +48,16 @@ slowNub = L' id step []
 -- | Collect all members into a @Set@.
 intoSet :: Ord a => L' a (S.Set a)
 intoSet = L' id (flip S.insert) S.empty
+
+-- | Grab the last element inputted
+last :: L' a (Maybe a)
+last = L' id step Nothing
+  where step Nothing = Just
+        step x = const x
+
+-- | Grab the nth element inputted
+nth :: (Eq b, Num b) => b -> L' a (Maybe a)
+nth b = L' (\(Pair' e _) -> maybe' Nothing Just e) step (Pair' Nothing' b)
+  where step st@(Pair' (Just' _) _) _ = st
+        step (Pair' _ 0) a = Pair' (Just' a) 0
+        step (Pair' _ n) _ = Pair' Nothing' (n - 1)
