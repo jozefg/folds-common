@@ -44,3 +44,7 @@ slowNub :: Eq a => L' a [a]
 slowNub = L' id step []
   where step as a | a `elem` as = as
                   | otherwise = a : as
+
+-- | Collect all members into a @Set@.
+intoSet :: Ord a => L' a (S.Set a)
+intoSet = L' id (flip S.insert) S.empty
