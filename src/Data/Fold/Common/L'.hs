@@ -1,6 +1,8 @@
 module Data.Fold.Common.L' where
 import Data.Fold
+import Data.Fold.Internal
 import Data.Monoid
+import qualified Data.Set as S
 
 -- | Sum of the inputs
 sum :: Num a => L' a a
@@ -30,3 +32,15 @@ maximum :: Ord a => L' a (Maybe a)
 maximum = L' id comp Nothing
   where comp Nothing a  = Just a
         comp (Just b) a = Just (max a b)
+
+-- | De-duplicate all the inputs while preserving order. @O(n log(n))@
+nub :: Ord a => L' a [a]
+nub = L' (\(Pair' _ l) -> l) step (Pair' S.empty [])
+  where step st@(Pair' s as) a | S.member a s = st
+                               | otherwise = Pair' (S.insert a s) (a : as)
+
+-- | De-duplicate all the inputs while preserving order. @O(n^2)@
+slowNub :: Eq a => L' a [a]
+slowNub = L' id step []
+  where step as a | a `elem` as = as
+                  | otherwise = a : as
