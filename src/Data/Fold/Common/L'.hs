@@ -17,3 +17,16 @@ count = L' id (\c _ -> succ c) (toEnum 0)
 -- | 'mappend' all the elements of a sequence together.
 msum :: Monoid m => L' m m
 msum = L' id mappend mempty
+
+-- | Minimum of all inputs. If no inputs are supplied this returns
+-- 'Nothing'.
+minimum :: Ord a => L' a (Maybe a)
+minimum = L' id comp Nothing
+  where comp Nothing a  = Just a
+        comp (Just b) a = Just (min a b)
+-- | Maximum of all inputs. If no inputs are supplied this returns
+-- 'Nothing'.
+maximum :: Ord a => L' a (Maybe a)
+maximum = L' id comp Nothing
+  where comp Nothing a  = Just a
+        comp (Just b) a = Just (max a b)
