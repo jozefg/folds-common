@@ -26,6 +26,7 @@ minimum :: Ord a => L' a (Maybe a)
 minimum = L' id comp Nothing
   where comp Nothing a  = Just a
         comp (Just b) a = Just (min a b)
+
 -- | Maximum of all inputs. If no inputs are supplied this returns
 -- 'Nothing'.
 maximum :: Ord a => L' a (Maybe a)
