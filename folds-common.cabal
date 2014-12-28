@@ -1,9 +1,10 @@
 name:                folds-common
 version:             0.1.0.0
 synopsis:            A playground of common folds for folds
-description:         In an effort to make @folds@ a more usable package the
+description:         In an effort to make @folds@ a more usable package this
                      package provides a battery of common folds. These can be
-                     plugged together easily and efficiently with @folds@.
+                     plugged together easily and efficiently to cover many
+                     common usages.
 license:             MIT
 license-file:        LICENSE
 author:              Danny Gratzer
