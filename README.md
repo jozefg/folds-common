@@ -1,5 +1,7 @@
 ## `folds-common`
 
+[![build status][build]][travis]
+
 One nice thing about the [`foldl`][foldl] library is that it comes
 with a "Batteries Included" suite of common folds to be used with its
 combinators.
@@ -11,3 +13,5 @@ the laziness and associativity of a lot of folding operations.
 
 [folds]: http://hackage.haskell.org/package/folds
 [foldl]: http://hackage.haskell.org/package/foldl
+[build]: https://travis-ci.org/jozefg/cooked-pi.svg?branch=master
+[travis]: https://travis-ci.org/jozefg/cooked-pi
