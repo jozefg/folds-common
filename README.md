@@ -13,5 +13,5 @@ the laziness and associativity of a lot of folding operations.
 
 [folds]: http://hackage.haskell.org/package/folds
 [foldl]: http://hackage.haskell.org/package/foldl
-[build]: https://travis-ci.org/jozefg/cooked-pi.svg?branch=master
-[travis]: https://travis-ci.org/jozefg/cooked-pi
+[build]: https://travis-ci.org/jozefg/folds-common.svg?branch=master
+[travis]: https://travis-ci.org/jozefg/folds-common
