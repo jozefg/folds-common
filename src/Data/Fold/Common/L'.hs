@@ -36,7 +36,7 @@ maximum = L' id comp Nothing
 
 -- | De-duplicate all the inputs while preserving order. @O(n log(n))@
 nub :: Ord a => L' a [a]
-nub = L' (\(Pair' _ l) -> l) step (Pair' S.empty [])
+nub = L' (\(Pair' _ l) -> reverse l) step (Pair' S.empty [])
   where step st@(Pair' s as) a | S.member a s = st
                                | otherwise = Pair' (S.insert a s) (a : as)
 

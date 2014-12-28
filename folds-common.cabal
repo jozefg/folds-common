@@ -20,3 +20,13 @@ library
                      , folds >= 0.5
   hs-source-dirs:      src
   default-language:    Haskell2010
+
+Test-Suite properties
+  type:               exitcode-stdio-1.0
+  main-is:            Main.hs
+  hs-source-dirs:     test
+  build-depends:      folds-common
+                    , tasty
+                    , tasty-quickcheck
+                    , base > 4.0 && < 5
+  default-language:    Haskell2010
