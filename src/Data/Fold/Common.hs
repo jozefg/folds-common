@@ -11,7 +11,7 @@
 -- > import           Control.Applicative
 -- > import qualified Data.Fold.Common as C
 -- >
--- > avg :: L' Double Double
+-- > avg :: C.L' Double Double
 -- > avg = (/) <$> C.sum <*> C.count
 -- >
 -- > main :: IO ()
