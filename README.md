@@ -1,6 +1,7 @@
-## `folds-common`
+# `folds-common`
 
 [![build status][build]][travis]
+[![hackage badge][badge]][hackage]
 
 One nice thing about the [`foldl`][foldl] library is that it comes
 with a "Batteries Included" suite of common folds to be used with its
@@ -15,3 +16,5 @@ the laziness and associativity of a lot of folding operations.
 [foldl]: http://hackage.haskell.org/package/foldl
 [build]: https://travis-ci.org/jozefg/folds-common.svg?branch=master
 [travis]: https://travis-ci.org/jozefg/folds-common
+[badge]: https://img.shields.io/hackage/v/folds-common.svg
+[hackage]: http://hackage.haskell.org/package/folds-common
