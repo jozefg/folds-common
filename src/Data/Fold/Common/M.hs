@@ -1,3 +1,7 @@
+-- | A collection of right folds. These are all short circuiting and
+-- are designed to handle certain infinite cases properly. These are
+-- useful for operations which don't require the full list to
+-- calculate the output.
 module Data.Fold.Common.M where
 import Prelude hiding (any, all)
 import Data.Fold

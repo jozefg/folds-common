@@ -1,3 +1,7 @@
+-- | A collection of common left folds. Note that all of these are
+-- strict and do not short circuit. These are useful for operations
+-- that require inspecting the entire list to calculate the final
+-- state.
 module Data.Fold.Common.L' where
 import Data.Fold
 import Data.Fold.Internal
@@ -23,7 +27,7 @@ product = L' id (*) 1
 -- >>> run [1 .. 10] count
 -- 10
 --
--- Note: GHCi will default @Enum e@ to '()'. If you see
+-- Note: GHCi will default @Enum e@ to @()@. If you see
 --
 -- > *** Exception: Prelude.Enum.().succ: bad argument
 --
