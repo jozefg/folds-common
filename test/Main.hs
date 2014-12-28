@@ -50,6 +50,10 @@ propIndexOf :: TestTree
 propIndexOf = testProperty "IndexOf Works"
               $ \l -> C.run l (C.indexOf even) == findIndex even (l :: [Int])
 
+propNull :: TestTree
+propNull = testProperty "Null Works"
+          $ \l -> C.run l C.null == null (l :: [Int])
+
 propStrictify :: TestTree
 propStrictify = testGroup "Strictify Works" [ s "any" $ C.any even
                                             , s "all" $ C.all even
@@ -58,12 +62,12 @@ propStrictify = testGroup "Strictify Works" [ s "any" $ C.any even
           testProperty name
           $ \l -> C.run (l :: [Int]) f == C.run l (C.strictify f)
 
-
 monoidFolds :: TestTree
 monoidFolds = testGroup "Monoidal Folds" [ propAny
                                          , propAll
                                          , propFind
                                          , propIndexOf
+                                         , propNub
                                          , propStrictify]
 
 main :: IO ()

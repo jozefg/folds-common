@@ -82,6 +82,16 @@ indexOf p = M (maybe' Nothing Just) to m Nothing'
 head :: M a (Maybe a)
 head = M getFirst (First . Just) (<>) (First Nothing)
 
+-- | Check whether a fold was fed any elements.
+--
+-- >>> run [] null
+-- True
+--
+-- >>> run [1..] null
+-- False
+null :: M a Bool
+null = M id (const True) (||) False
+
 -- | Occasionally we want to use a short-circuiting fold with other,
 -- nonlazy folds. This function drops laziness on the floor for a @L'@
 -- fold. This is dangerous because it can potentially effect
