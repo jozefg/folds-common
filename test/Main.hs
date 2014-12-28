@@ -21,11 +21,18 @@ propNub :: TestTree
 propNub = testProperty "Nub Works"
           $ \l -> C.run l C.nub == nub (l :: [Int])
 
+propLast :: TestTree
+propLast = testProperty "Last works"
+           $ \l -> C.run l C.last == (mlast l :: Maybe Int)
+  where mlast [] = Nothing
+        mlast xs = Just (last xs)
+
 leftFolds :: TestTree
 leftFolds = testGroup "Left Folds" [ propSum
                                    , propProduct
                                    , propCount
-                                   , propNub]
+                                   , propNub
+                                   , propLast]
 
 propAny :: TestTree
 propAny = testProperty "Any Works"
