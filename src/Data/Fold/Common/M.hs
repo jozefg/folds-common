@@ -76,7 +76,7 @@ head = M getFirst (First . Just) (<>) (First Nothing)
 -- >>> run [1..] null
 -- False
 null :: M a Bool
-null = M id (const True) (||) False
+null = M id (const False) (&&) True
 
 -- | Occasionally we want to use a short-circuiting fold with other,
 -- nonlazy folds. This function drops laziness on the floor for a @L'@
