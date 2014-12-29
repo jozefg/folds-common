@@ -1,4 +1,4 @@
-# `folds-common`
+# folds-common
 
 [![build status][build]][travis]
 [![hackage badge][badge]][hackage]
