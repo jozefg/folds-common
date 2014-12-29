@@ -1,4 +1,4 @@
-module L' (leftFolds) where
+module Main where
 import qualified Data.Fold.Common as C
 import Data.Monoid
 import Data.List
@@ -35,7 +35,6 @@ propMaximum = testProperty "Maximum Works"
   where mmaximum [] = Nothing
         mmaximum xs = Just (maximum xs)
 
-
 propNub :: TestTree
 propNub = testProperty "Nub Works"
           $ \l -> C.run l C.nub == nub (l :: [Int])
@@ -55,14 +54,14 @@ propLast = testProperty "Last works"
   where mlast [] = Nothing
         mlast xs = Just (last xs)
 
-leftFolds :: TestTree
-leftFolds = testGroup "Left Folds" [ propSum
-                                   , propProduct
-                                   , propCount
-                                   , propMconcat
-                                   , propMinimum
-                                   , propMaximum
-                                   , propNub
-                                   , propSlowNub
-                                   , propIntoSet
-                                   , propLast]
+main :: IO ()
+main = defaultMain $ testGroup "Left Folds" [ propSum
+                                            , propProduct
+                                            , propCount
+                                            , propMconcat
+                                            , propMinimum
+                                            , propMaximum
+                                            , propNub
+                                            , propSlowNub
+                                            , propIntoSet
+                                            , propLast]

@@ -1,4 +1,4 @@
-module R (rightFolds) where
+module Main where
 import qualified Data.Fold.Common as C
 import Data.List
 import Test.Tasty
@@ -30,9 +30,9 @@ propChunk = testProperty "Chunk Works"
           (x : takeWhile (== x) xs) : chunk (dropWhile (== x) xs)
 
 
-rightFolds :: TestTree
-rightFolds = testGroup "Right Folds" [ propIntoList
-                                     , propTake
-                                     , propDrop
-                                     , propIndexOf
-                                     , propChunk]
+main :: IO ()
+main = defaultMain $ testGroup "Right Folds" [ propIntoList
+                                             , propTake
+                                             , propDrop
+                                             , propIndexOf
+                                             , propChunk]

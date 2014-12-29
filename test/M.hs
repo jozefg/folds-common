@@ -1,4 +1,4 @@
-module M (monoidFolds) where
+module Main where
 import qualified Data.Fold.Common as C
 import Data.List
 import Test.Tasty
@@ -45,13 +45,13 @@ propStrictify = testGroup "Strictify Works" [ s "any" $ C.any even
           testProperty name
           $ \l -> C.run (l :: [Int]) f == C.run l (C.strictify f)
 
-monoidFolds :: TestTree
-monoidFolds = testGroup "Monoidal Folds" [ propAny
-                                         , propAll
-                                         , propAnd
-                                         , propOr
-                                         , propElem
-                                         , propNotElem
-                                         , propFind
-                                         , propNull
-                                         , propStrictify]
+main :: IO ()
+main = defaultMain $ testGroup "Monoidal Folds" [ propAny
+                                                , propAll
+                                                , propAnd
+                                                , propOr
+                                                , propElem
+                                                , propNotElem
+                                                , propFind
+                                                , propNull
+                                                , propStrictify]
