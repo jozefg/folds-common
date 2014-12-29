@@ -57,7 +57,8 @@ module Data.Fold.Common
        , take
        , drop
        , indexOf
-       , chunk) where
+       , chunk
+       , concat) where
 import Prelude ()
 import Data.Fold
 import Data.Fold.Common.L'

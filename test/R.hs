@@ -29,10 +29,14 @@ propChunk = testProperty "Chunk Works"
         chunk (x : xs) =
           (x : takeWhile (== x) xs) : chunk (dropWhile (== x) xs)
 
+propConcat :: TestTree
+propConcat = testProperty "Concat Works"
+              $ \l -> C.run l C.concat == concat (l :: [[Int]])
 
 main :: IO ()
 main = defaultMain $ testGroup "Right Folds" [ propIntoList
                                              , propTake
                                              , propDrop
                                              , propIndexOf
-                                             , propChunk]
+                                             , propChunk
+                                             , propConcat]

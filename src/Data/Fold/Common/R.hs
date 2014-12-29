@@ -77,3 +77,17 @@ chunk f = R (\(Pair' _ xs) -> xs) step (Pair' Nothing' [])
           in if b == b'
              then Pair' (Just' b') ((a : as) : ass)
              else Pair' (Just' b') ([a] : as : ass)
+
+-- | Lazily produce a flattened list of the inputted lists.
+--
+-- >>> run [[1], [2], [3]] concat
+-- [1, 2, 3]
+--
+-- >>> head $ run (map return [1..]) concat
+-- 1
+--
+-- Note: The right fold ensures that all applications of '++'
+-- associate to the right. This makes this fold ideal for streaming
+-- but slow when completely forced.
+concat :: R [a] [a]
+concat = R id (++) []
