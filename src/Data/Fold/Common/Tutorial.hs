@@ -1,3 +1,4 @@
+{-# LANGUAGE Safe #-}
 -- | This seems like as good a place as any to give a quick tutorial
 -- on using @folds@.
 --
