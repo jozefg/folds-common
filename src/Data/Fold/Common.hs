@@ -1,3 +1,4 @@
+{-# LANGUAGE Safe #-}
 -- | This module exports a few common folds. These are defined roughly
 -- as follows.
 --

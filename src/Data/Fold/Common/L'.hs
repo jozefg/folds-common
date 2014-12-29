@@ -1,3 +1,4 @@
+{-# LANGUAGE Safe #-}
 -- | A collection of common left folds. Note that all of these are
 -- strict and do not short circuit. These are useful for operations
 -- that require inspecting the entire list to calculate the final
@@ -7,7 +8,6 @@ import Data.Fold
 import Data.Fold.Internal
 import Data.Monoid
 import qualified Data.Set as S
-import Debug.Trace
 
 -- | Sum of the inputs
 --

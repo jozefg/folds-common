@@ -1,7 +1,6 @@
+{-# LANGUAGE Safe #-}
 -- | A series of common right folds. These tend to be list centric
--- since since lists provide such a lousy monoid. In particular this
--- means that a monoidal fold producing a list we almost always want
--- to associate right.
+-- since since lists provide such a lousy monoid.
 module Data.Fold.Common.R where
 import Data.Fold
 import Data.Fold.Internal
