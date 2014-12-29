@@ -58,20 +58,6 @@ find :: (a -> Bool) -> M a (Maybe a)
 find p = M getFirst to (<>) (First Nothing)
   where to a = First $ if p a then Just a else Nothing
 
--- | Find the first index for which a predicate holds.
---
--- >>> run [1, 2, 3, 4] (indexOf (== 4))
--- Just 3
---
--- >>> run [1, 2, 3, 4] (indexOf (> 4))
--- Nothing
-indexOf :: Enum e => (a -> Bool) -> M a (Maybe e)
-indexOf p = M (maybe' Nothing Just) to m Nothing'
-  where to a = if p a then Just' (toEnum 0) else Nothing'
-        m (Just' a) _ = Just' (succ a)
-        m _ (Just' a) = Just' (succ a)
-        m _ _ = Nothing'
-
 -- | Grab the first inputted element.
 --
 -- >>> run [1 ..] head

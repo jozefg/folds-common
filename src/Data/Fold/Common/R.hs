@@ -4,6 +4,7 @@
 -- to associate right.
 module Data.Fold.Common.R where
 import Data.Fold
+import Data.Fold.Internal
 
 -- | An extremely boring fold. You can almost view this as an identity
 -- fold across lists.
@@ -41,3 +42,16 @@ drop b = R ($ b) step (\_ -> [])
         -- Note, this costs an integer comparison + thunks along the
         -- list. Is this really OK? It's still perfectly lazy at
         -- least.
+
+-- | Find the first index for which a predicate holds.
+--
+-- >>> run [1, 2, 3, 4] (indexOf (== 4))
+-- Just 3
+--
+-- >>> run [1, 2, 3, 4] (indexOf (> 4))
+-- Nothing
+indexOf :: Enum e => (a -> Bool) -> R a (Maybe e)
+indexOf p = R (maybe' Nothing Just) step Nothing'
+  where step a _ | p a = Just' (toEnum 0)
+        step _ Nothing' = Nothing'
+        step _ (Just' a) = Just' (succ a)
