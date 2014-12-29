@@ -108,8 +108,8 @@ null = M id (const False) (&&) True
 -- >>> run (repeat False) (strictify and)
 -- ... diverges ...
 --
--- This means it is only advisable to use when combining a monoidal
--- fold with something that requires left folding.
+-- This is generally an advantage when we want to combine a monoidal
+-- fold with a left one.
 --
 -- >>> run [1.0, 2, 3, 4] $ (/) <$> strictify head <*> maximum
 -- 0.25

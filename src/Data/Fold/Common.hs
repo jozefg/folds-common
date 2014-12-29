@@ -1,14 +1,5 @@
 {-# LANGUAGE Safe #-}
--- | This module exports a few common folds. These are defined roughly
--- as follows.
---
---  * If it can't short-circuit, it's a @L'@
---  * If it can short-circuit and is associative, it's an @M@
---  * If it can short-circuit but isn't associative, it's an @R@
---
--- Since you may want to combine a monoidal and strict left fold,
--- 'strictify' is an operation that drops laziness and reassociates an
--- 'M'.
+-- | This module exports a bunch of common folds.
 --
 -- For the classic example
 --
@@ -33,6 +24,9 @@
 --
 -- Since they destroy the primary advantage of folds in the first
 -- place.
+--
+-- Also note that monoidal folds can be combined with strict left ones
+-- with 'strictify'.
 module Data.Fold.Common
        ( module Data.Fold
          -- * Left Folds
