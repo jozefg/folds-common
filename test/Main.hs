@@ -27,6 +27,12 @@ propLast = testProperty "Last works"
   where mlast [] = Nothing
         mlast xs = Just (last xs)
 
+propChunk :: TestTree
+propChunk = testProperty "Chunk Works"
+            $ \l -> C.run l (C.chunk id) == chunk (l :: [Int])
+  where chunk [] = []
+        chunk (x : xs) = takeWhile (== x) xs : chunk (dropWhile (== x) xs)
+
 leftFolds :: TestTree
 leftFolds = testGroup "Left Folds" [ propSum
                                    , propProduct
