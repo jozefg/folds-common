@@ -47,6 +47,25 @@ and = all id
 or :: M Bool Bool
 or = any id
 
+-- | Check whether an element is fed into the fold.
+--
+-- >>> run [1, 2, 3] (elem 3)
+-- True
+--
+-- >>> run [] (elem 1)
+-- False
+elem :: Eq a => a -> M a Bool
+elem a = any (== a)
+
+-- | Check whther an element isn't fed into the fold.
+-- >>> run [1, 2, 3] (notElem 3)
+-- False
+--
+-- >>> run [] (notElem 1)
+-- True
+notElem :: Eq a => a -> M a Bool
+notElem a = all (/= a)
+
 -- | Find the first element for which a predicate holds.
 --
 -- >>> run [1, 2, 3, 4] (find even)
