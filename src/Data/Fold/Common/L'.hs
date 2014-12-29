@@ -126,3 +126,25 @@ nth b = L' (\(Pair' e _) -> maybe' Nothing Just e) step (Pair' Nothing' b)
   where step st@(Pair' (Just' _) _) _ = st
         step (Pair' _ 0) a = Pair' (Just' a) 0
         step (Pair' _ n) _ = Pair' Nothing' (n - 1)
+
+-- | Chunk the input into partitions according to a function. While
+-- the values from the function are equal elements are collected into
+-- a chunk. Note that partitioning according to a predicate is just a
+-- special case of this.
+--
+-- >>> run [1, 1, 2, 3] (chunk id)
+-- [[1, 1], [2], [3]]
+--
+-- >>> run [1, -1, 2, 1] (chunk abs)
+-- [[1, -1], 2, [1]]
+--
+-- >>> run [1, 2, 4, 6, 5] (chunk even)
+-- [[1], [2, 4, 6], 5]
+chunk :: Eq b => (a -> b) -> L' a [[a]]
+chunk f = L' (map (\(Pair' _ b) -> b)) step []
+  where step [] a = [Pair' (f a) [a]]
+        step s@(Pair' y xs : xss) x =
+          let y' = f x
+          in if y' == y
+             then Pair' y (x : xs) : xss
+             else Pair' y' [x] : s
