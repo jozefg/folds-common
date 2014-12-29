@@ -22,10 +22,10 @@ intoList = R id (:) []
 --
 -- >>> run [1, 2, 3] (take 100)
 -- [1, 2, 3]
-take :: (Eq b, Num b) => b -> R a [a]
+take :: (Eq b, Ord b, Num b) => b -> R a [a]
 take b = R ($ b) step (\_ -> [])
-  where step _ _ 0 = []
-        step x xs n = x : xs (n - 1)
+  where step x xs n | n <= 0 = []
+                    | otherwise = x : xs (n - 1)
 
 -- | Drop the first @n@ items. If less then @n@ items are supplied
 -- then return the empty list.
@@ -35,10 +35,10 @@ take b = R ($ b) step (\_ -> [])
 --
 -- >>> run [1, 2, 3] (drop 100)
 -- []
-drop :: (Eq b, Num b) => b -> R a [a]
+drop :: (Eq b, Ord b, Num b) => b -> R a [a]
 drop b = R ($ b) step (\_ -> [])
-  where step x xs 0 = x : xs 0
-        step _ xs n = xs (n - 1)
+  where step x xs n | n <= 0 = x : xs 0
+                    | otherwise = xs (n - 1)
         -- Note, this costs an integer comparison + thunks along the
         -- list. Is this really OK? It's still perfectly lazy at
         -- least.
