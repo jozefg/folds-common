@@ -85,12 +85,11 @@
 -- Now @folds@ exports quite a few different kinds of folds. 'sum' and
 -- 'count' are both @L'@ folds. These correspond to the sort of folds
 -- we'd use @foldl'@ for. In addition, there are 'M' folds which mimic
--- 'foldMap' and 'R' folds for 'foldr'.
---
--- There are a lot more than this, each fold has a strict and lazy
--- version (the strict is notated with a '). Additionally, each fold
--- can be made to run with zero or more inputs, or take it's first
--- input from the collection (think 'foldr' vs 'foldr1').
+-- 'foldMap' and 'R' folds for 'foldr'.  There are a lot more than
+-- these core folds, each fold has a strict and lazy version (the
+-- strict is notated with a '). Additionally, each fold can be made to
+-- run with zero or more inputs, or take it's first input from the
+-- collection (think 'foldr' vs 'foldr1').
 --
 -- Each of these folds has different uses. @L'@ folds are useful for
 -- running folds that traverse the entire input in constant memory. On
@@ -99,7 +98,21 @@
 -- monoidal fold is ill suited for doing a folding operation that
 -- isn't based around a monoid or for one whose monoid is really
 -- innefficient (lists I'm looking at you!). For these, we have right
--- folds.
+-- folds. Happily, it's quite easy to figure out which fold you'd
+-- want. Think about which folding combinator from "Data.Foldable"
+-- you'd use to write your program. Since there's a one-to-one map
+-- with the "Data.Foldable" and "Data.Fold", just pick the appropriate
+-- fold.
+--
+-- Specifically
+--
+--  * @foldMap@ is @M@
+--  * @foldr@ is @R@
+--  * @foldr'@ is @R'@
+--  * @foldl@ is @L@
+--  * @foldl'@ is @L'@
+--  * @foldr1@ is @R1@
+--  * @foldl1@ is @L1@
 --
 -- To get a feel for using these, I'd recommend playing around with
 -- the combinators exported by "Data.Fold.Common" and perhaps seeing
