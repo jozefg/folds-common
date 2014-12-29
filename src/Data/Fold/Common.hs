@@ -21,7 +21,9 @@
 module Data.Fold.Common
        ( module Data.Fold
        , module Data.Fold.Common.L'
-       , module Data.Fold.Common.M) where
+       , module Data.Fold.Common.M
+       , module Data.Fold.Common.R) where
 import Data.Fold
 import Data.Fold.Common.L'
 import Data.Fold.Common.M
+import Data.Fold.Common.R
