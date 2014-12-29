@@ -26,7 +26,7 @@ any p = M getAny (Any . p) (<>) (Any False)
 -- >>> run [1, 2, 3, 4] (all (> 1))
 -- False
 all :: (a -> Bool) -> M a Bool
-all p = M getAll (All . p) (<>) (All False)
+all p = M getAll (All . p) (<>) (All True)
 
 -- | Check whether all elements are 'True'.
 --
