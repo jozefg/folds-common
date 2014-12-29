@@ -5,7 +5,6 @@
 module Data.Fold.Common.M where
 import Prelude hiding (any, all)
 import Data.Fold
-import Data.Fold.Internal hiding (First)
 import Data.Monoid
 
 -- | Check that if predicate holds for any inputs to the fold.
