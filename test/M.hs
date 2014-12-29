@@ -14,11 +14,11 @@ propAll = testProperty "All Works"
 
 propAnd :: TestTree
 propAnd = testProperty "And Works"
-  $ \l -> C.run l C.and == and (l :: [Bool])
+          $ \l -> C.run l C.and == and (l :: [Bool])
 
 propOr :: TestTree
 propOr = testProperty "Or Works"
-  $ \l -> C.run l C.or == or (l :: [Bool])
+         $ \l -> C.run l C.or == or (l :: [Bool])
 
 propElem :: TestTree
 propElem = testProperty "Elem Works"
@@ -35,7 +35,7 @@ propFind = testProperty "Find Works"
 
 propNull :: TestTree
 propNull = testProperty "Null Works"
-          $ \l -> C.run l C.null == null (l :: [Int])
+           $ \l -> C.run l C.null == null (l :: [Int])
 
 propStrictify :: TestTree
 propStrictify = testGroup "Strictify Works" [ s "any" $ C.any even
