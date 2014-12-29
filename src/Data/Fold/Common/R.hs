@@ -55,3 +55,26 @@ indexOf p = R (maybe' Nothing Just) step Nothing'
   where step a _ | p a = Just' (toEnum 0)
         step _ Nothing' = Nothing'
         step _ (Just' a) = Just' (succ a)
+
+
+-- | Chunk the input into partitions according to a function. While
+-- the values from the function are equal elements are collected into
+-- a chunk. Note that partitioning according to a predicate is just a
+-- special case of this.
+--
+-- >>> run [1, 1, 2, 3] (chunk id)
+-- [[1, 1], [2], [3]]
+--
+-- >>> run [1, -1, 2, 1] (chunk abs)
+-- [[1, -1], 2, [1]]
+--
+-- >>> run [1, 2, 4, 6, 5] (chunk even)
+-- [[1], [2, 4, 6], 5]
+chunk :: (Show b, Eq b) => (a -> b) -> R a [[a]]
+chunk f = R (\(Pair' _ xs) -> xs) step (Pair' Nothing' [])
+  where step a (Pair' Nothing' l) = Pair' (Just' $ f a) [[a]]
+        step a (Pair' (Just' b) (as : ass)) =
+          let b' = f a
+          in if b == b'
+             then Pair' (Just' b') ((a : as) : ass)
+             else Pair' (Just' b') ([a] : as : ass)

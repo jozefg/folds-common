@@ -22,8 +22,17 @@ propIndexOf :: TestTree
 propIndexOf = testProperty "IndexOf Works"
               $ \l -> C.run l (C.indexOf even) == findIndex even (l :: [Int])
 
+propChunk :: TestTree
+propChunk = testProperty "Chunk Works"
+            $ \l -> C.run l (C.chunk id) == chunk (l :: [Int])
+  where chunk [] = []
+        chunk (x : xs) =
+          (x : takeWhile (== x) xs) : chunk (dropWhile (== x) xs)
+
+
 rightFolds :: TestTree
 rightFolds = testGroup "Right Folds" [ propIntoList
                                      , propTake
                                      , propDrop
-                                     , propIndexOf]
+                                     , propIndexOf
+                                     , propChunk]
