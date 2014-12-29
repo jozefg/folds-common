@@ -1,0 +1,109 @@
+-- | This seems like as good a place as any to give a quick tutorial
+-- on using @folds@.
+--
+-- To start with, what does @folds@ provide? @folds@ is centered
+-- around two main type classes, 'Scanning' and 'Folding'. These
+-- capture the notion of a fold. This looks a little scary (what's
+-- that choice class?) but really it's not so bad.
+--
+-- Whenever you see a @p a b@ you should read it as "a fold taking in
+-- @a@s and collapsing them to a @b@. What's interesting about this
+-- particular type structure is that @p a b@ can be made a @Profunctor@!
+--
+-- As a quick reminder, a profunctor gives us two main methods
+--
+-- > lmap :: (c -> a) -> p a b -> p c b
+-- > rmap :: (b -> d) -> p a b -> p a d
+--
+-- Of these notice that @rmap@ is just like 'fmap' and @lmap@ is a
+-- sort of backwards 'fmap'. It's what we'd call a "contravariant
+-- map".
+--
+-- With this in mind, let's look at the 'Folding' type class. The main
+-- method is
+--
+-- > run :: Foldable f => f a -> p a b -> b
+--
+-- So this method takes a fold and a foldable container and runs the
+-- fold across it. This is the main interface with working with folds.
+--
+-- In addition to this, 'Folding' has 'prefix' and 'postfix'. Both of
+-- these take a fold an input, but rather than just running the fold
+-- they return a new fold! For 'prefix' when this new fold is run it
+-- acts as if our container contained the prefixed on first, and then
+-- all its other elements. For example
+--
+-- >>> run [1, 2, 3] (prefix toList [4, 5, 6])
+-- [4, 5, 6, 1, 2, 3]
+--
+-- For 'postfix' the opposite happens: the container is added "at the
+-- end" of the next inputted container.
+--
+-- 'Folding' also has 'filtered' which only runs either runs lets the
+-- fold skip elements which don't satisfy a predicate. Last but not
+-- least, all of the inputs that work across 'Foldable' types can be
+-- run with the lens notion of a fold if lens is your thing.
+--
+-- Now since a fold is a profunctor, we can apply this methods. I like
+-- to think of a fold as a big meatgrinder (pleasant image I
+-- know). @lmap@ says that we can fit a pipe onto the front of our
+-- machine that takes in @c@s and outputs @a@s. @rmap@ says that we
+-- can attach a pipe to the end of our machine that takes in a @b@ and
+-- spits out a @d@. So @lmap@ modifies input and @rmap@ modifies output.
+--
+-- Already we can see how this is useful, suddenly we can write one
+-- fold that works across let's say 'Integer's and retrofit it with
+-- the capability to work across 'Double's. More generally, by
+-- treating folds as profunctors we can apply all the abstraction
+-- techniques that we're familiar with in Haskell to cut out
+-- boilerplate.
+--
+-- Even more exciting than this, we can make our folds into
+-- 'Applicative's. What this does is take two folds with the same
+-- inputs and mush them together so they produce a combined output. So
+-- for example, "Data.Fold.Common.L'" exports a fold called 'sum' that
+-- sums all the inputs it's given. That module also exports 'count'
+-- which counts the number of inputs it's been fed.
+--
+-- Normally in Haskell, we might do something like
+--
+-- > avg :: [Double] -> Double
+-- > avg xs = sum xs / length xs
+--
+-- This leaks space though! 'sum' will traverse the list and force it,
+-- but we can't garbage collect it as we go because 'length' is going
+-- to need it. Using the applicative instance for folds solves this
+-- issue.
+--
+-- > import qualified Data.Fold.Common as C
+-- > avg = C.run $ (/) <$> C.sum <*> C.count
+--
+-- The applicative instance will cleverly ensure that we only pass
+-- over the list once and GHC will use this fact to run the program in
+-- constant memory.
+--
+-- Now @folds@ exports quite a few different kinds of folds. 'sum' and
+-- 'count' are both @L'@ folds. These correspond to the sort of folds
+-- we'd use @foldl'@ for. In addition, there are 'M' folds which mimic
+-- 'foldMap' and 'R' folds for 'foldr'.
+--
+-- There are a lot more than this, each fold has a strict and lazy
+-- version (the strict is notated with a '). Additionally, each fold
+-- can be made to run with zero or more inputs, or take it's first
+-- input from the collection (think 'foldr' vs 'foldr1').
+--
+-- Each of these folds has different uses. @L'@ folds are useful for
+-- running folds that traverse the entire input in constant memory. On
+-- the other hand, they cannot short circuit. For that we can use
+-- monoidal folds which run efficiently but can be used lazily. A
+-- monoidal fold is ill suited for doing a folding operation that
+-- isn't based around a monoid or for one whose monoid is really
+-- innefficient (lists I'm looking at you!). For these, we have right
+-- folds.
+--
+-- To get a feel for using these, I'd recommend playing around with
+-- the combinators exported by "Data.Fold.Common" and perhaps seeing
+-- how they're implemented.
+--
+-- Happy hacking!
+module Data.Fold.Common.Tutorial where
