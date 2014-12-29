@@ -16,8 +16,18 @@
 -- > main :: IO ()
 -- > main = print $ C.run [1 .. 10000000] avg
 --
--- This will run in constant memory as we'd hope.
+-- This will run in constant memory as we'd hope.  In general the
+-- rules for keeping memory usage low while using @folds@ are
 --
+-- * Don't try to consume a left fold lazily
+-- * Don't try to consume a right fold strictly
+-- * Never use '>>='
+-- * Never use 'extend'
+-- * Never use 'prefix' on right folds
+-- * Never use 'postfix' on left folds
+--
+-- Since they destroy the primary advantage of folds in the first
+-- place.
 module Data.Fold.Common
        ( module Data.Fold
        , module Data.Fold.Common.L'
