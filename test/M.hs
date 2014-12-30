@@ -37,6 +37,12 @@ propNull :: TestTree
 propNull = testProperty "Null Works"
            $ \l -> C.run l C.null == null (l :: [Int])
 
+propHead :: TestTree
+propHead = testProperty "Head Works"
+           $ \l -> C.run l C.head == mhead (l :: [Int])
+  where mhead [] = Nothing
+        mhead (x : xs) = Just x
+
 propStrictify :: TestTree
 propStrictify = testGroup "Strictify Works" [ s "any" $ C.any even
                                             , s "all" $ C.all even
@@ -53,5 +59,6 @@ main = defaultMain $ testGroup "Monoidal Folds" [ propAny
                                                 , propElem
                                                 , propNotElem
                                                 , propFind
+                                                , propHead
                                                 , propNull
                                                 , propStrictify]

@@ -54,6 +54,12 @@ propLast = testProperty "Last works"
   where mlast [] = Nothing
         mlast xs = Just (last xs)
 
+propNth :: TestTree
+propNth = testProperty "Nth works"
+           $ \i l -> C.run l (C.nth i) == (nth i l :: Maybe Int)
+  where nth n xs | length xs <= n = Nothing
+        nth n xs = Just (xs !! n)
+
 main :: IO ()
 main = defaultMain $ testGroup "Left Folds" [ propSum
                                             , propProduct
@@ -64,4 +70,5 @@ main = defaultMain $ testGroup "Left Folds" [ propSum
                                             , propNub
                                             , propSlowNub
                                             , propIntoSet
-                                            , propLast]
+                                            , propLast
+                                            , propNth]
