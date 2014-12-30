@@ -123,8 +123,9 @@ last = L' id step Nothing
 --
 -- >>> run [1 .. 10] (nth 20)
 -- Nothing
-nth :: (Eq b, Num b) => b -> L' a (Maybe a)
+nth :: (Eq b, Ord b, Num b) => b -> L' a (Maybe a)
 nth b = L' (\(Pair' e _) -> maybe' Nothing Just e) step (Pair' Nothing' b)
   where step st@(Pair' (Just' _) _) _ = st
+        step (Pair' _ n) _ | n < 0 = Pair' Nothing' n
         step (Pair' _ 0) a = Pair' (Just' a) 0
         step (Pair' _ n) _ = Pair' Nothing' (n - 1)
