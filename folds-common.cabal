@@ -21,7 +21,6 @@ library
                      , Data.Fold.Common.L'
                      , Data.Fold.Common.M
                      , Data.Fold.Common.R
-                     , Data.Fold.Common.Tutorial
   build-depends:       base >=4.0 && <5
                      , containers >= 0.5
                      , folds >= 0.5
