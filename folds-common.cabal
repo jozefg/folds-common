@@ -1,5 +1,5 @@
 name:                folds-common
-version:             0.1.1.0
+version:             0.2.0.0
 synopsis:            A playground of common folds for folds
 description:         In an effort to make @folds@ a more usable package this
                      package provides a battery of common folds. These can be
