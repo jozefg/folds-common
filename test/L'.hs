@@ -57,7 +57,7 @@ propLast = testProperty "Last works"
 propNth :: TestTree
 propNth = testProperty "Nth works"
            $ \i l -> C.run l (C.nth i) == (nth i l :: Maybe Int)
-  where nth n xs | length xs <= n = Nothing
+  where nth n xs | length xs <= n || n < 0 = Nothing
         nth n xs = Just (xs !! n)
 
 main :: IO ()
